@@ -1,0 +1,35 @@
+body {
+    background-image: url('/static/media/bg.png');
+}
+
+/* Add some content at the bottom of the video/page */
+.content {
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-bottom: 10%;
+    position: fixed;
+    bottom: 10px;
+    background: rgb(42, 108, 221);
+    border: 4px solid rgb(2, 34, 90);
+    border-radius: 10px;
+    font-family: cursive;
+    color: #f1f1f1;
+    width: 50%;
+    text-align: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Style the button used to pause/play the video */
+.button {
+    background-color: rgb(42, 108, 221);
+    color: white;
+    border: 2px solid rgb(2, 34, 90);
+    font-family: cursive;
+    border-radius: 5px;
+}
+
+.button:hover {
+    background-color: rgb(2, 34, 90);
+    color: white;
+}
