@@ -5,23 +5,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CMS</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
+    <meta name="description" content="">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.5/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind -->
 
 </head>
 
 <body>
-   
+    <div class="navbar bg-base-100">
+        <div class="flex-1">
+            <a class="btn btn-ghost normal-case text-xl">daisyUI</a>
+        </div>
+        <div class="flex-none gap-2">
 
-    <div class="content">
-        <h1>Welcome to Canteen Management System</h1>
-        <p>Our system is designed to make it easy for you to order and pay for your meals at the canteen. You can browse
-            our
-            menu, place your order, track its status, and make payment all in one place.</p>
-        <p>Our menu is updated regularly to reflect seasonal ingredients and current food trends, so you'll always have
-            something new and delicious to try. </p>
-        <button class="button">Login as Staff</button>
-        <button class="button">Login as Customer</button>
+            <div class="dropdown dropdown-end">
+                <label tabindex="0" class="btn btn-ghost btn-circle avatar">
+                    <div class="w-10 rounded-full">
+                        <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                    </div>
+                </label>
+                <ul tabindex="0"
+                    class="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
+                    <li>
+                        <a class="justify-between">
+                            Profile
+                            <span class="badge">New</span>
+                        </a>
+                    </li>
+                    <li><a>Settings</a></li>
+                    <li><a href="{{ url_for('index') }}">Login</a></li>
+                </ul>
+            </div>
+        </div>
     </div>
+    <footer class="footer footer-center p-4 bg-base-300 text-base-content">
+        <div>
+            <p>Copyright © 2023 - All right reserved by Thandav industries Ltd.</p>
+        </div>
+    </footer>
 </body>
 
 </html>
