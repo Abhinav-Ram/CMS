@@ -1,6 +1,6 @@
 import os
 import pathlib
-
+import numpy as np
 import requests
 from flask import Flask, session, abort, redirect, request, render_template
 from flask_sqlalchemy import SQLAlchemy
@@ -56,6 +56,16 @@ def login_is_required(function):
     return wrapper
 
 
+def login_required(function):
+    def lwrapper(*args, **kwargs):
+        if "google_id" not in session:
+            return abort(401)  # Authorization required
+        else:
+            return function()
+
+    return lwrapper
+
+
 @app.route("/login")
 def login():
     authorization_url, state = flow.authorization_url()
@@ -103,6 +113,12 @@ def index():
 def protected_area():
     fooditems = FoodItem.query.all()
     return render_template('home.html', value="Logout", fooditems=fooditems)
+
+
+@app.route('/main/cart')
+@login_required
+def cart():
+    return render_template('cart.html')
 
 
 if __name__ == "__main__":
