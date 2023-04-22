@@ -2,26 +2,46 @@ import os
 import pathlib
 
 import requests
-from flask import Flask, session, abort, redirect, request
+from flask import Flask, session, abort, redirect, request, render_template
+from flask_sqlalchemy import SQLAlchemy
 from google.oauth2 import id_token
 from google_auth_oauthlib.flow import Flow
 from pip._vendor import cachecontrol
 import google.auth.transport.requests
 
 
-app = Flask("Google Login App")
-app.secret_key = "@209AoRQeFkeW" 
+base_dir = basedir = os.path.abspath(os.path.dirname(__file__))
+
+app = Flask(__name__)
+app.secret_key = "@209AoRQeFkeW"
+app.config['SQLALCHEMY_DATABASE_URI'] =\
+    'sqlite:///' + os.path.join(basedir, 'food_items.db')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
+
+
+class FoodItem(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), unique=True, nullable=False)
+    price = db.Column(db.Float, nullable=False)
+
+    def __repr__(self):
+        return f'<FoodItem {self.name} {self.price}>'
+
 
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
 
-GOOGLE_CLIENT_ID = "1048242188244-fupluigctbeesj717dmtg1rn2fteoi6t.apps.googleusercontent.com"  
-client_secrets_file = os.path.join(pathlib.Path(__file__).parent, "client_secret.json")
+GOOGLE_CLIENT_ID = "1048242188244-fupluigctbeesj717dmtg1rn2fteoi6t.apps.googleusercontent.com"
+client_secrets_file = os.path.join(
+    pathlib.Path(__file__).parent, "client_secret.json")
 
 
 flow = Flow.from_client_secrets_file(
     client_secrets_file=client_secrets_file,
-    scopes=["https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email", "openid"],
+    scopes=["https://www.googleapis.com/auth/userinfo.profile",
+            "https://www.googleapis.com/auth/userinfo.email", "openid"],
     redirect_uri="http://127.0.0.1:5000/callback"
 )
 
@@ -53,7 +73,8 @@ def callback():
     credentials = flow.credentials
     request_session = requests.session()
     cached_session = cachecontrol.CacheControl(request_session)
-    token_request = google.auth.transport.requests.Request(session=cached_session)
+    token_request = google.auth.transport.requests.Request(
+        session=cached_session)
 
     id_info = id_token.verify_oauth2_token(
         id_token=credentials._id_token,
@@ -63,7 +84,7 @@ def callback():
 
     session["google_id"] = id_info.get("sub")
     session["name"] = id_info.get("name")
-    return redirect("/protected_area")
+    return redirect("/main")
 
 
 @app.route("/logout")
@@ -74,13 +95,14 @@ def logout():
 
 @app.route("/")
 def index():
-    return "Hello World <a href='/login'><button>Login</button></a>"
+    return render_template('index.html', value="Login")
 
 
-@app.route("/protected_area")
+@app.route("/main")
 @login_is_required
 def protected_area():
-    return f"Hello {session['name']}! <br/> <a href='/logout'><button>Logout</button></a>"
+    fooditems = FoodItem.query.all()
+    return render_template('home.html', value="Logout", fooditems=fooditems)
 
 
 if __name__ == "__main__":

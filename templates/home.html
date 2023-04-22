@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="menu">
+    {% for fooditem in fooditems %}
+    <div class="card w-96 bg-base-100 shadow-xl">
+        <div class="card-body">
+            <h2 class="card-title">{{ fooditem.name }}</h2>
+            <p>Rs. {{ fooditem.price }}</p>
+            <div class="card-actions justify-end">
+                <button class="btn btn-primary">+ Cart</button>
+            </div>
+        </div>
+    </div>
+    <br>
+    {% endfor %}
+</div>
+{% endblock %}
