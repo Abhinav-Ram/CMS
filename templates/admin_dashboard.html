@@ -1,0 +1,25 @@
+{% extends 'admin_base.html' %}
+{% block content %}
+<div class="menu">
+    <div class="btn-group">
+        <a class="btn btn-outline" href="{{ url_for('logout') }}">Logout</a>
+    </div>
+    <h1 class="mb-2 mt-0 text-5xl font-medium leading-tight text-primary">
+        List of Orders
+    </h1>
+    {% for item in items %}
+    <div class="card w-96 bg-base-100 shadow-xl">
+        <div class="card-body">
+            <h2 class="card-title">{{ item }}</h2>
+            {% for subitem in items[item] %}
+            <p>{{ subitem }}</p>
+            {% endfor %}
+
+            <div class="card-actions justify-end">
+                <a href="/admin/deliver-order/{{item}}" class="btn btn-primary">Deliver order</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

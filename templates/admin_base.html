@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMSAdmin</title>
+    <meta name="description" content="">
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.5/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+    <!-- Tailwind -->
+
+</head>
+
+<body>
+    {% block content %}{% endblock %}
+    <script src="{{ url_for('static', filename = 'js/scripts.js') }}"></script>
+    <div class="btm-nav">
+        <a href="/admin/dashboard" class="text-info{{ dashboard }}">
+            <span class="btm-nav-label">Home</span>
+        </a>
+
+        <a href="/admin/menu" class="text-info{{ menu }}">
+            <span class="btm-nav-label">Menu</span>
+        </a>
+
+        <a href="/admin/about" class="text-info{{ about }}">
+            <span class="btm-nav-label">About</span>
+        </a>
+    </div>
+    <script src="{{ url_for('static', filename = 'js/scripts.js') }}"></script>
+</body>
+
+</html>

@@ -1,0 +1,20 @@
+{% extends 'admin_base.html' %}
+{% block content %}
+<div class="menu">
+    <div class="btn-group">
+        <a class="btn btn-outline" href="{{ url_for('logout') }}">Logout</a>
+    </div>
+    <h1 class="mb-2 mt-0 text-5xl font-medium leading-tight text-primary">
+        Menu
+    </h1>
+    <ul class="menu w-56 text-secondary-content p-2 rounded-box">
+        {% for item in items %}
+        <li><button>{{item.id}}. {{ item.name }} - ₹{{item.price}}</button></li>
+        {% endfor %}
+    </ul>
+
+    <div class="btn-group">
+        <button class="btn btn-secondary"><b>+</b> New Item</button>
+    </div>
+</div>
+{% endblock %}

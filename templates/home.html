@@ -1,22 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="menu">
 
+<h1>{{ naming }}</h1>
+<div class="menu">
+    <div class="indicator">
+        <a href="/added_to_cart" class="btn btn-primary">Check out</a>
+    </div>
     {% for fooditem in fooditems %}
     <div class="card w-96 bg-base-100 shadow-xl">
         <div class="card-body">
             <h2 class="card-title">{{ fooditem.name }}</h2>
             <p>₹{{ fooditem.price }}</p>
-            <div class="card-actions justify-end">
-                <div class="btn-group">
-                    <button onclick="{{ cart.append(fooditem) }}" class="btn btn-active">+</button>
-                    <button class="btn btn-ghost">0</button>
-                    <button class="btn btn-active">-</button>
-                </div>
+            <div class="btn-group">
+                <a href="/add_to_cart/{{fooditem.id}}-{{fooditem.name}}-{{fooditem.price}}" class="btn btn-active">Add
+                    to Cart</a>
+
             </div>
         </div>
     </div>
     <br>
     {% endfor %}
-</div>
-{% endblock %}
+    </form>
+    {% endblock %}

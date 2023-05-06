@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'prebase.html' %}
 {% block content %}
 <div class="overflow-x-auto">
     <table class="table table-compact w-full">
@@ -19,7 +19,6 @@
             <td>{{ item["qty"] }}</td>
             {% set amt = item["price"] * item["qty"] %}
             <td>{{ amt }}</td>
-            <td><a href="/delete_from_cart/{{item['id'] }}" class="btn btn-error">✕</a></td>
         </tr>
         {% endfor %}
         <tr>
@@ -31,4 +30,5 @@
         </tr>
     </table>
 </div>
+<a href="/checkout" class="btn btn-primary">Back To Main</a>
 {% endblock %}

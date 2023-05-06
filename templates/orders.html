@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="alert alert-info shadow-lg">
+    <div>
+        <span>Here are orders:</span>
+    </div>
+</div>
+
+{% for order in orders %}
+<div class="alert shadow-lg">
+
+    <div>
+        <div>
+
+            <h3 class="font-bold">{{ order.id }}</h3>
+
+            <div class="text-xs">{{ order.date }}</div>
+
+
+        </div>
+    </div>
+    <div class="flex-none">
+        <a href="/orders/{{order.id}}" class="btn btn-sm">See</a>
+    </div>
+
+</div>
+{% endfor %}
+
+
+{% endblock %}
