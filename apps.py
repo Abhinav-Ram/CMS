@@ -103,11 +103,13 @@ def logout():
 
 @apps.route("/admin/deliver-order/<string:id>")
 def deliver(id):
-    order = Order(id=id, date=datetime.now())
-    db.session.add(order)
+    order = Order(id=id, date=datetime.now(), order_items=[])
     rem_order = CartItem.query.filter_by(id=id).all()
     for ind_rem_order in rem_order:
+        order.order_items.append(ind_rem_order)
+    for ind_rem_order in rem_order:
         db.session.delete(ind_rem_order)
+    db.session.add(order)
     db.session.commit()
     return redirect(url_for('main'))
 

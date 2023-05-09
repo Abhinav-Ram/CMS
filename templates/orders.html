@@ -16,13 +16,14 @@
             <h3 class="font-bold">{{ order.id }}</h3>
 
             <div class="text-xs">{{ order.date }}</div>
-
+            <h3 class="font-bold">Item list:</h3>
+            {% for item in order.order_items %}
+            <div class="text-xs">{{ item.name }} - ₹{{ item.price }}</div>
+            {% endfor %}
 
         </div>
     </div>
-    <div class="flex-none">
-        <a href="/orders/{{order.id}}" class="btn btn-sm">See</a>
-    </div>
+
 
 </div>
 {% endfor %}

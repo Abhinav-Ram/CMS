@@ -43,6 +43,8 @@ class Order(db.Model):
     order_id = db.Column(db.Integer, primary_key=True)
     id = db.Column(db.String(80), nullable=False)
     date = db.Column(db.DateTime, nullable=False)
+    order_items = db.Column(db.PickleType(), nullable=False)
+
     
 
     def __repr__(self):
