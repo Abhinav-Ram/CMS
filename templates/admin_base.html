@@ -14,9 +14,11 @@
 </head>
 
 <body>
+
     {% block content %}{% endblock %}
     <script src="{{ url_for('static', filename = 'js/scripts.js') }}"></script>
-    <div class="btm-nav">
+
+    <div id="bottom-navbar" class="btm-nav">
         <a href="/admin/dashboard" class="text-info{{ dashboard }}">
             <span class="btm-nav-label">Home</span>
         </a>

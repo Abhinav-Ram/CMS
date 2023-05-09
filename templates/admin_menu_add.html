@@ -1,0 +1,25 @@
+{% extends 'admin_base.html' %}
+{% block content %}
+<div class="menu">
+    <div class="btn-group">
+        <a class="btn btn-outline" href="{{ url_for('logout') }}">Logout</a>
+    </div>
+    <h1 class="mb-2 mt-0 text-5xl font-medium leading-tight text-primary">
+        Menu
+    </h1>
+    <ul class="menu w-56 text-secondary-content p-2 rounded-box">
+        {% for item in items %}
+        <li><a>{{item.id}}. {{ item.name }} - ₹{{item.price}} </a></li>
+        {% endfor %}
+    </ul>
+    <form action="{{ url_for('added_item') }}" method="post">
+        <div class="flex">
+            <input name="name" type="text" placeholder="Item Name"
+                class="mr-2 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <input name="price" type="number" placeholder="Price"
+                class="mr-2 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Add</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

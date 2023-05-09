@@ -151,8 +151,6 @@ def added_to_cart():
 
 @app.route('/checkout')
 def refresh():
-    session["cart"].clear()
-    session.modified = True
     return redirect('/main')
 
 
@@ -161,8 +159,11 @@ def view_orders():
     orders = Order.query.filter_by(id=session["google_id"]).all()
     return render_template('orders.html', orders=orders, value="Logout")
 
-
-
+@app.route('/payment')
+def payment():
+    session["cart"].clear()
+    session.modified = True
+    return render_template('payment.html', value="Logout")
 
 @app.route('/cart', methods=['GET', 'POST'])
 def cart():
@@ -174,6 +175,7 @@ def cart():
         amount += item["qty"] * item["price"]
 
     return render_template('cart.html', value="Logout", cart=cart, amount=amount)
+
 
 
 if __name__ == "__main__":

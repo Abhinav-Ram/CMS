@@ -69,6 +69,25 @@ def menu():
         return redirect('/admin')
     return render_template('admin_menu.html', items=food_items, menu=" active")
 
+@apps.route("/admin/menu/add",methods=['GET','POST'])
+def add_item():
+    food_items = FoodItem.query.all()
+    if 'username' not in session:
+        return redirect('/admin')
+    return render_template('admin_menu_add.html', items=food_items, menu=" active")
+
+@apps.route("/admin/menu/add/added",methods=['GET','POST'])
+def added_item():
+    if request.method == "POST":
+        name = request.form["name"]
+        print("Name=",name)
+        price = request.form["price"]
+        print("Price=",price)
+        count = len(FoodItem.query.all())
+        fooditem = FoodItem(id=count+1,name=name,price=price)
+        db.session.add(fooditem)
+        db.session.commit()
+    return redirect('/admin/menu')
 
 @apps.route("/admin/about")
 def about():

@@ -9,12 +9,12 @@
     </h1>
     <ul class="menu w-56 text-secondary-content p-2 rounded-box">
         {% for item in items %}
-        <li><button>{{item.id}}. {{ item.name }} - ₹{{item.price}}</button></li>
+        <li><a>{{item.id}}. {{ item.name }} - ₹{{item.price}} </a></li>
         {% endfor %}
     </ul>
 
     <div class="btn-group">
-        <button class="btn btn-secondary"><b>+</b> New Item</button>
+        <a href="{{ url_for('add_item') }}" class="btn btn-secondary"><b>+</b> New Item</a>
     </div>
 </div>
 {% endblock %}
